@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+<style type="text/css">
+body {
+  font-family: Arial;
+  background-image: url(assets/bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+.main {
+  border: 3px solid #000;
+  border-radius: 5px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffaa00;
+  width: 1200px;
+  margin-top: 100px;
+}
+button {
+  cursor: pointer;
+}
+#tbl_dt {
+  margin: auto;
+  border-collapse: collapse;
+}
+#tbl_dt > thead > tr > th {
+  padding: 5px;
+}
+#tbl_dt > tbody > tr > td {
+  padding: 2px;
+}
+.ctn {
+  min-width: 100px;
+}
+#covid19_tbl {
+  margin-top: 10px;
+  padding: 5px;
+  padding-bottom: 40px;
+  border: 1px solid #000;
+  background-color: #f9eac0;
+}
+.search_bar {
+  margin-bottom: 5px;
+}
+.tr-odd {
+  background-color: #f9df90;
+}
+.tr-ev {
+  background-color: #ffcf56;
+}
+.tr-odd:hover, .tr-ev:hover {
+  background-color: #f4e19c
+}
+
+.vtr > td {
+  padding-top: 1000px;
+}
+
+</style>
+</head>
+<body>
+  <div class="main">
+    <a href="index.html"><button>Kembali ke Index</button></a>
+    <div id="covid19_tbl">
+      <h2>Data Genome Sequencing</h2>
+      <div style="margin-top:10px;margin-bottom:10px;">
+        <button>Upload Data</button>&nbsp;
+        <button>Olah Data</button>
+        <button>Blast Compare</button>
+        <button>Highligh Sequence</button>
+        <button>Graph</button>
+      </div>
+      <div class="search_bar">
+        Pencarian Data:
+        <select>
+          <option>Judul</option>
+          <option>Author</option>
+          <option>xxxx</option>
+          <option>xxxx</option>
+          <option>xxxx</option>
+        </select>
+        <input type="" name="">
+        <button>Cari</button>
+      </div>
+      <div>
+        <table border="1" id="tbl_dt">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>TITLE</th>
+              <th>AUTHOR</th>
+              <th>LOCUS</th>
+              <th>DEFINITION</th>
+              <th>ACCESSION</th>
+              <th>VERSION</th>
+              <th>JOURNAL</th>
+              <th>FASTA</th>
+              <th>COMMENT</th>
+              <th>FEATURES</th>
+            </tr>
+          </thead>
+          <tbody id="bd_data">
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+            <tr class="vtr">
+              <td>1.</td>
+              <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
+              <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
+              <td>NC_045512</td>
+              <td>Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome.</td>
+              <td>NC_045512</td>
+              <td>2</td>
+              <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
+              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td><a href="#">Open (1)</a></td>
+              <td><a href="#">Open (2)</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
