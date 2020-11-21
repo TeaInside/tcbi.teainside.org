@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+<style type="text/css">
+body {
+  font-family: Arial;
+  background-image: url(assets/bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+.main {
+  border: 3px solid #000;
+  border-radius: 5px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffaa00;
+  width: 900px;
+  margin-top: 100px;
+}
+button {
+  cursor: pointer;
+}
+#tbl_dt {
+  margin: auto;
+  border-collapse: collapse;
+}
+#tbl_dt > thead > tr > th {
+  padding: 5px;
+}
+#tbl_dt > tbody > tr > td {
+  padding: 2px;
+}
+.ctn {
+  min-width: 100px;
+}
+#covid19_tbl {
+  margin-top: 10px;
+  padding: 5px;
+  padding-bottom: 40px;
+  border: 1px solid #000;
+  background-color: #f9eac0;
+}
+.search_bar {
+  margin-bottom: 5px;
+}
+.tr-odd {
+  background-color: #f9df90;
+}
+.tr-ev {
+  background-color: #ffcf56;
+}
+.tr-odd:hover, .tr-ev:hover {
+  background-color: #f4e19c
+}
+</style>
+</head>
+<body>
+  <div class="main">
+    <a href="index.html"><button>Kembali ke Index</button></a>
+    <div id="covid19_tbl">
+      <h2>Informasi COVID-19</h2>
+      <div class="search_bar">
+        Pencarian Negara:
+        <input type="" name="">
+        <button>Cari</button>
+      </div>
+      <div>
+        <table border="1" id="tbl_dt">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nama Negara</th>
+              <th class="ctn">CMT</th>
+              <th class="ctn">FST</th>
+              <th class="ctn">SDT</th>
+              <th class="ctn">CMT Baru</th>
+              <th class="ctn">FST Baru</th>
+              <th class="ctn">CMT Aktif</th>
+            </tr>
+          </thead>
+          <tbody id="bd_data">
+            <tr><td colspan="8"><h2>Loading...</h2></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+let ch = new XMLHttpRequest;
+let bd = document.getElementById("bd_data");
+ch.onload = function () {
+  let json = JSON.parse(this.responseText);
+  let i, j = 0, r = "";
+  let
+    cmt_total = 0,
+    fst_total = 0,
+    sdt_total = 0,
+    new_cmt_total = 0,
+    new_fst_total = 0,
+    active_cmt_total = 0;
+
+  let nxInt = function (n) {
+    n = parseInt(n);
+    if (n !== n) {
+      return 0;
+    }
+    return n;
+  };
+
+  for (i in json.data) {
+    let d = json.data[i];
+    r +=   "<tr class=\"trc "+(j%2 ? "tr-odd" : "tr-ev")+"\">"
+         + "<td>"+j+"</td>"
+         + "<td>"+d.scope.split("country:")[1]+"</td>"
+         + "<td>"+d.cmt+"</td>"
+         + "<td>"+d.fst+"</td>"
+         + "<td>"+d.sdt+"</td>"
+         + "<td>"+d.new_cmt+"</td>"
+         + "<td>"+d.new_fst+"</td>"
+         + "<td>"+d.active_cmt+"</td>"
+         + "</tr>";
+    j++;
+    cmt_total += nxInt(d.cmt);
+    fst_total += nxInt(d.fst);
+    sdt_total += nxInt(d.sdt);
+    new_cmt_total += nxInt(d.new_cmt);
+    new_fst_total += nxInt(d.new_fst);
+    active_cmt_total += nxInt(d.active_cmt);
+  }
+  r +=   "<tr>"
+       + "<th colspan=\"2\">Total</th>"
+       + "<td>"+cmt_total+"</td>"
+       + "<td>"+fst_total+"</td>"
+       + "<td>"+sdt_total+"</td>"
+       + "<td>"+new_cmt_total+"</td>"
+       + "<td>"+new_fst_total+"</td>"
+       + "<td>"+active_cmt_total+"</td>"
+       + "</tr>";
+  bd.innerHTML = r;
+};
+ch.open("GET", "https://api.teainside.org/corona/?all=1");
+ch.send(null);
+</script>
+</body>
+</html>
