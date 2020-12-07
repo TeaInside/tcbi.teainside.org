@@ -10,6 +10,7 @@ namespace TCBI.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Tea Center for Biotechnology Information";
             return View();
         }
 
