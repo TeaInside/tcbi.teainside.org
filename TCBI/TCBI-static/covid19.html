@@ -93,9 +93,11 @@ button {
       </div>
       <h2>Informasi COVID-19</h2>
       <div class="search_bar">
-        Pencarian Negara:
-        <input type="text" name="country" id="country">
-        <button id="country_btn">Cari</button>
+        <form id="form_search" action="javascript:void(0);" method="get">
+          Pencarian Negara:
+          <input type="text" name="country" id="country">
+          <button id="country_btn">Cari</button>
+        </form>
       </div>
       <div>
         <table border="1" id="tbl_dt">
@@ -120,42 +122,42 @@ button {
   </div>
 <script type="text/javascript">
 
-    let country = document.getElementById("country");
-    let country_btn = document.getElementById("country_btn");
-    country_btn.addEventListener("click", function () {
-        let ch = new XMLHttpRequest;
-        ch.onload = function () {
-            // kene mengko diisi algoritma searching
-        };
-        ch.open("GET", "https://api.teainside.org/corona/?all=1");
-        ch.send();
-    }
-let ch = new XMLHttpRequest;
-let bd = document.getElementById("bd_data");
-ch.onload = function () {
-  let json = JSON.parse(this.responseText);
-  let i, j = 0, r = "";
-  let
-    cmt_total = 0,
-    fst_total = 0,
-    sdt_total = 0,
-    new_cmt_total = 0,
-    new_fst_total = 0,
-    active_cmt_total = 0;
+let ch  = new XMLHttpRequest;
+let bd  = document.getElementById("bd_data");
+let fs  = document.getElementById("form_search");
+let arr = null;
 
-  let nxInt = function (n) {
-    n = parseInt(n);
-    if (n !== n) {
-      return 0;
-    }
-    return n;
-  };
+function apply_data(json, filter = null)
+{
+  let i, j = 0, r = "",
+      cmt_total = 0,
+      fst_total = 0,
+      sdt_total = 0,
+      new_cmt_total = 0,
+      new_fst_total = 0,
+      active_cmt_total = 0,
+      nxInt = function (n) {
+        n = parseInt(n);
+        if (n !== n) {
+          return 0;
+        }
+        return n;
+      };
+
 
   for (i in json.data) {
     let d = json.data[i];
+    let country_name = d.scope.split("country:")[1];
+
+    if (filter !== null) {
+      if (country_name !== filter) {
+        continue;
+      }
+    }
+
     r +=   "<tr class=\"trc "+(j%2 ? "tr-odd" : "tr-ev")+"\">"
          + "<td>"+j+"</td>"
-         + "<td>"+d.scope.split("country:")[1]+"</td>"
+         + "<td>"+country_name+"</td>"
          + "<td>"+d.cmt+"</td>"
          + "<td>"+d.fst+"</td>"
          + "<td>"+d.sdt+"</td>"
@@ -181,9 +183,27 @@ ch.onload = function () {
        + "<td>"+active_cmt_total+"</td>"
        + "</tr>";
   bd.innerHTML = r;
+}
+
+ch.onload = function () {
+  let json = JSON.parse(this.responseText);
+  arr = JSON.parse(this.responseText);
+  apply_data(json);
 };
 ch.open("GET", "https://api.teainside.org/corona/?all=1");
 ch.send(null);
+
+
+let country_search = document.getElementById("country");
+fs.addEventListener("submit", function () {
+  let country_name = country_search.value.trim();
+
+  if (country_name === "") {
+    country_name = null;
+  }
+
+  apply_data(arr, country_name);
+});
 </script>
 </body>
 </html>
