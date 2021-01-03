@@ -21,9 +21,10 @@ class NCBIScraper extends ScraperFoundation
   private bool $useProxy = true;
 
   /**
+   * @param string $param
    * @return void
    */
-  public function execute()
+  public function execute(string $param)
   {
     Log::addHandler(STDOUT);
 
@@ -33,35 +34,47 @@ class NCBIScraper extends ScraperFoundation
     $c = count(parent::TOR_PROXIES);
     $i = 0;
     $this->proxy = parent::TOR_PROXIES[$i % $c];
+    $listId = $this->search($param);
 
-    $pdo     = DB::pdo();
-    $stInfo  = $pdo->prepare($infoQuery);
-    $stFasta = $pdo->prepare($fastaQuery);
-    $listId  = $this->search("homo sapien");
+    $pids = [];
+    pcntl_signal(SIGCHLD, SIG_IGN);
 
     foreach ($listId as $ncbiId) {
 
-      try {
-        Log::log(1, "Scraping {$ncbiId}...");
-        $info  = $this->getInfo($ncbiId);
-        $fasta = $this->getFasta($ncbiId);
+      $this->proxy = parent::TOR_PROXIES[$i % $c];
+      if (!($pid = pcntl_fork())) {
+        try {
+          $pdo     = DB::pdo();
+          $stInfo  = $pdo->prepare($infoQuery);
+          $stFasta = $pdo->prepare($fastaQuery);
+          Log::log(1, "Scraping {$ncbiId}...");
+          $info  = $this->getInfo($ncbiId);
+          $fasta = $this->getFasta($ncbiId);
 
-        $pdo->beginTransaction();
+          $pdo->beginTransaction();
 
-        $stInfo->execute($info);
-        $stFasta->execute([
-          "seqdata_id" => $pdo->lastInsertId(),
-          "data" => $fasta
-        ]);
+          $stInfo->execute($info);
+          $stFasta->execute([
+            "seqdata_id" => $pdo->lastInsertId(),
+            "data" => $fasta
+          ]);
 
-        $pdo->commit();
+          $pdo->commit();
 
-        Log::log(1, "Insert OK {$ncbiId}");
-      } catch (\PDOException $e) {
-        $pdo->rollback();
-        throw $e;
+          Log::log(1, "Insert OK {$ncbiId}");
+        } catch (\PDOException $e) {
+          $pdo->rollback();
+          throw $e;
+        }
+        exit(0);
       }
+      $pids[] = $pod;
       $i++;
+
+    }
+
+    foreach ($pids as $pid) {
+      pcntl_waitpid($pid, $status);
     }
   }
 
