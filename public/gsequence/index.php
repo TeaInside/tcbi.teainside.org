@@ -9,7 +9,7 @@ require __DIR__."/../../autoload.php";
 <style type="text/css">
 body {
   font-family: Arial;
-  background-image: url(assets/bg.jpg);
+  background-image: url(/assets/bg.jpg);
   background-size: cover;
   background-attachment: fixed;
 }
