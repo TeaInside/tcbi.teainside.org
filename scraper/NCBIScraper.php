@@ -16,6 +16,11 @@ class NCBIScraper extends ScraperFoundation
   private string $proxy;
 
   /**
+   * @var bool
+   */
+  private bool $useProxy = true;
+
+  /**
    * @return void
    */
   public function execute()
@@ -30,7 +35,11 @@ class NCBIScraper extends ScraperFoundation
     $stFasta = $pdo->prepare($fastaQuery);
     $listId  = $this->search("covid19");
 
+    $c = count(parent::TOR_PROXIES);
+    $i = 0;
     foreach ($listId as $ncbiId) {
+      $this->proxy = parent::TOR_PROXIES[$i % $c];
+
       try {
         Log::log(1, "Scraping {$ncbiId}...");
         $info  = $this->getInfo($ncbiId);
@@ -51,6 +60,7 @@ class NCBIScraper extends ScraperFoundation
         $pdo->rollback();
         throw $e;
       }
+      $i++;
     }
   }
 
@@ -60,7 +70,16 @@ class NCBIScraper extends ScraperFoundation
    */
   public function getFasta(int $id): string
   {
-    return $this->curl("https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?id={$id}&db=nuccore&report=fasta&extrafeat=null&conwithfeat=on&hide-cdd=on&retmode=html&withmarkup=on&tool=portal&log\$=seqview&maxdownloadsize=1000000")["out"];
+    if ($this->useProxy) {
+      $opt = [
+        CURLOPT_PROXY => $this->proxy,
+        CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5
+      ];
+    } else {
+      $opt = [];
+    }
+
+    return $this->curl("https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?id={$id}&db=nuccore&report=fasta&extrafeat=null&conwithfeat=on&hide-cdd=on&retmode=html&withmarkup=on&tool=portal&log\$=seqview&maxdownloadsize=1000000", $opt)["out"];
   }
 
   /**
@@ -69,6 +88,15 @@ class NCBIScraper extends ScraperFoundation
    */
   public function getInfo(int $id): array
   {
+    if ($this->useProxy) {
+      $opt = [
+        CURLOPT_PROXY => $this->proxy,
+        CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5
+      ];
+    } else {
+      $opt = [];
+    }
+
     $ret = [
       "ncbi_id"      => $id,
       "locus"        => NULL,
@@ -79,7 +107,7 @@ class NCBIScraper extends ScraperFoundation
       "sources"      => NULL,
       "references"   => NULL,
     ];
-    $out = $this->curl("https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?id={$id}&db=nuccore&report=genbank&conwithfeat=on&withparts=on&hide-cdd=on&retmode=json&withmarkup=on&tool=portal&log\$=seqview&maxdownloadsize=1000000")["out"];
+    $out = $this->curl("https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?id={$id}&db=nuccore&report=genbank&conwithfeat=on&withparts=on&hide-cdd=on&retmode=json&withmarkup=on&tool=portal&log\$=seqview&maxdownloadsize=1000000", $opt)["out"];
 
     if (preg_match("/LOCUS.+?(.+?)(?:\\n|$|<)/", $out, $m)) {
       do {
@@ -136,8 +164,17 @@ class NCBIScraper extends ScraperFoundation
    */
   public function search(string $term): array
   {
+    if ($this->useProxy) {
+      $opt = [
+        CURLOPT_PROXY => $this->proxy,
+        CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5
+      ];
+    } else {
+      $opt = [];
+    }
+
     $term = urlencode($term);
-    $out  = $this->curl("https://www.ncbi.nlm.nih.gov/nuccore/?term={$term}")["out"];
+    $out  = $this->curl("https://www.ncbi.nlm.nih.gov/nuccore/?term={$term}", $opt)["out"];
 
     // file_put_contents("data.txt", $out);
     // $out = file_get_contents("data.txt");
