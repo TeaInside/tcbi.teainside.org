@@ -37,7 +37,7 @@ class NCBIScraper extends ScraperFoundation
     $pdo     = DB::pdo();
     $stInfo  = $pdo->prepare($infoQuery);
     $stFasta = $pdo->prepare($fastaQuery);
-    $listId  = $this->search("covid19");
+    $listId  = $this->search("homo sapien");
 
     foreach ($listId as $ncbiId) {
 
