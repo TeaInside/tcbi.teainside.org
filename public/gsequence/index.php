@@ -108,6 +108,21 @@ button {
   padding-top: 1000px;
 }
 
+.page-num {
+  color: blue;
+  text-decoration: none;
+  font-size: 30px;
+}
+.page-num:hover {
+  text-decoration: underline;
+  font-size: 30px;
+}
+.page-cage {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+  padding-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -140,8 +155,8 @@ button {
         
       </script>
       <div class="search_bar">
-        Pencarian Data:
-        <select>
+       
+        <!-- <select>
           <option>Semua Database</option>
           <option>Assembly</option>
           <option>Biocollections</option>
@@ -183,14 +198,86 @@ button {
           <option>ToolKit</option>
           <option>ToolKitAll</option>
           <option>ToolKitBolkgh</option>
-        </select>
-        <input type="" name="">
-        <button>Cari</button>
+        </select> -->
 <?php
-$pdo = DB::pdo();
-$st  = $pdo->prepare("SELECT * FROM seqdata LIMIT 10");
-$st->execute();
+$page  = isset($_GET["page"]) && is_string($_GET["page"]) ? (int)$_GET["page"] : 1;
+$limit = 10;
+//$limit = isset($_GET["limit"]) && is_numeric($_GET["limit"]) ? $_GET["limit"] : 10;
+
+if ($page < 1) $page = 1;
+
+$offset = $limit * ($page - 1);
+
+if ($isSearch = isset($_GET["q"]) && is_string($_GET["q"])) {
+  $_GET["q"] = trim($_GET["q"]);
+  $isSearch  = $isSearch && ($_GET["q"] !== "");
+}
+
+if ($isSearch) {
+  $q   = "%".strtolower($_GET["q"])."%";
+
+  $pdo = DB::pdo();
+  $exe = [$q, $q, $q, $q, $q, $q, $q];
+
+  $st  = $pdo->prepare(
+"SELECT COUNT(1) FROM seqdata
+WHERE
+locus LIKE ? OR
+definition LIKE ? OR
+accession LIKE ? OR
+version LIKE ? OR
+keywords LIKE ? OR
+sources LIKE ? OR
+`references` LIKE ?");
+  $st->execute($exe);
+  $numOfData = (int)$st->fetch(PDO::FETCH_NUM)[0];
+  $numOfPage = (int)ceil($numOfData / $limit);
+
+  $st  = $pdo->prepare(
+"SELECT * FROM seqdata
+WHERE
+locus LIKE ? OR
+definition LIKE ? OR
+accession LIKE ? OR
+version LIKE ? OR
+keywords LIKE ? OR
+sources LIKE ? OR
+`references` LIKE ?
+LIMIT {$limit} OFFSET {$offset}"
+);
+  $st->execute($exe);
+  $q = "q=".urlencode($_GET["q"])."&";
+
+} else {
+  $pdo = DB::pdo();
+  $st  = $pdo->prepare("SELECT COUNT(1) FROM seqdata");
+  $st->execute();
+  $numOfData = (int)$st->fetch(PDO::FETCH_NUM)[0];
+  $numOfPage = (int)ceil($numOfData / $limit);
+  $st = $pdo->prepare("SELECT * FROM seqdata LIMIT {$limit} OFFSET {$offset}");
+  $st->execute();
+  $_GET["q"] = "";
+  $q = "";
+}
+
 ?>
+        <form method="get" action="?">
+          Pencarian Data:
+          <input type="text" name="q" value="<?php echo e($_GET["q"]); ?>">
+          <button>Cari</button>
+        </form>
+<?php ob_start(); ?>
+        <div class="page-cage">
+        <h3>Paginator</h3>
+        <?php for ($i = 1; $i <= $numOfPage; $i++): ?>
+          <?php if ($page === $i): ?>
+            <a class="page-num" href="?<?php echo e($q); ?>page=<?php echo $i; ?>"><b><?php echo $i; ?></b></a>&nbsp;&nbsp;
+          <?php else: ?>
+            <a class="page-num" href="?<?php echo e($q); ?>page=<?php echo $i; ?>"><?php echo $i; ?></a>&nbsp;&nbsp;
+          <?php endif; ?>
+        <?php endfor; ?>
+        </div>
+<?php echo $x = ob_get_clean(); ?>
         <table border="1" id="tbl_dt">
           <thead>
             <tr>
@@ -223,6 +310,7 @@ $st->execute();
             <?php endwhile; ?>
           </tbody>
         </table>
+<?php echo $x; ?>
       </div>
     </div>
   </div>
