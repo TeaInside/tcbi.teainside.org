@@ -127,16 +127,12 @@ button {
 </head>
 <body>
   <div class="main">
-    <a href="index.html"><button>Kembali ke Index</button></a>
+    <a href="/"><button>Back to Index</button></a>
     <div id="covid19_tbl">
       <h2>Data Genome Sequencing</h2>
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Upload Data</a>
-        <a href="#">Olah Data</a>
-        <a href="/diff_gen_seq">Blast Compare</a>
-        <a href="#">Highlight Sequence</a>
-        <a href="#">Graph</a>
+        <a href="/diff_gen_seq">Diff Gen Seq</a>
       </div>
       <div id="main">
         <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;Menu</span>
@@ -262,7 +258,7 @@ LIMIT {$limit} OFFSET {$offset}"
 
 ?>
         <form method="get" action="?">
-          Pencarian Data:
+          Search Data:
           <input type="text" name="q" value="<?php echo e($_GET["q"]); ?>">
           <button>Cari</button>
         </form>
