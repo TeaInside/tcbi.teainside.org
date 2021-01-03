@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Data Genome Sequencing</title>
 <style type="text/css">
 body {
   font-family: Arial;
@@ -19,6 +19,51 @@ body {
   width: 1200px;
   margin-top: 100px;
 }
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top:0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main{
+  position: left;
+  transition: margin-left;
+}
+
+@media screen and (max-height: 450px){
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
 button {
   cursor: pointer;
 }
@@ -66,13 +111,31 @@ button {
     <a href="index.html"><button>Kembali ke Index</button></a>
     <div id="covid19_tbl">
       <h2>Data Genome Sequencing</h2>
-      <div style="margin-top:10px;margin-bottom:10px;">
-        <button>Upload Data</button>&nbsp;
-        <button>Olah Data</button>
-        <button>Blast Compare</button>
-        <button>Highligh Sequence</button>
-        <button>Graph</button>
+      <body>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Upload Data</a>
+        <a href="#">Olah Data</a>
+        <a href="#">Blast Compare</a>
+        <a href="#">Highlight Sequence</a>
+        <a href="#">Graph</a>
       </div>
+      <div id="main">
+        <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;Menu</span>
+      </div>
+
+      <script>
+        function openNav(){
+          document.getElementById("mySidenav").style.width="250px";
+          document.getElementById("main").style.marginLeft="250px";
+        }
+
+        function closeNav(){
+          document.getElementById("mySidenav").style.width="0";
+          document.getElementById("main").style.marginLeft="0";
+        }
+        
+      </script>
       <div class="search_bar">
         Pencarian Data:
         <select>
@@ -146,12 +209,12 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
-            </tr>
+            </tr> 
             <tr class="vtr">
-              <td>1.</td>
+              <td>2.</td>
               <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
               <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
               <td>NC_045512</td>
@@ -159,12 +222,12 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
             </tr>
             <tr class="vtr">
-              <td>1.</td>
+              <td>3.</td>
               <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
               <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
               <td>NC_045512</td>
@@ -172,12 +235,12 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
             </tr>
             <tr class="vtr">
-              <td>1.</td>
+              <td>4.</td>
               <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
               <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
               <td>NC_045512</td>
@@ -185,12 +248,12 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
             </tr>
             <tr class="vtr">
-              <td>1.</td>
+              <td>5.</td>
               <td  class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
               <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
               <td>NC_045512</td>
@@ -198,12 +261,12 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
             </tr>
             <tr class="vtr">
-              <td>1.</td>
+              <td>6.</td>
               <td class="ctn">Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome</td>
               <td>Wu,F., Zhao,S., Yu,B., Chen,Y.M., Wang,W., Song,Z.G., Hu,Y., Tao,Z.W., Tian,J.H., Pei,Y.Y., Yuan,M.L., Zhang,Y.L., Dai,F.H., Liu,Y., Wang,Q.M., Zheng,J.J., Xu,L., Holmes,E.C. and Zhang,Y.Z.</td>
               <td>NC_045512</td>
@@ -211,7 +274,7 @@ button {
               <td>NC_045512</td>
               <td>2</td>
               <td>Submitted (05-JAN-2020) Shanghai Public Health Clinical Center &amp; School of Public Health, Fudan University, Shanghai, China</td>
-              <td>ATTAAAGGTTTATA... <a href="#">Lihat lengkap...</a></td>
+              <td>ATTAAAGGTTTATA... <a href="fasta.html">Lihat lengkap...</a></td>
               <td><a href="#">Open (1)</a></td>
               <td><a href="#">Open (2)</a></td>
             </tr>
