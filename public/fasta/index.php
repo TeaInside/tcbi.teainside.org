@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__."/../autoload.php";
+require __DIR__."/../../autoload.php";
 
 if (!isset($_GET["id"]) || !is_string($_GET["id"])) {
   header("Location: gsequence.php");
@@ -63,7 +63,7 @@ button {
 </head>
 <body>
   <div class="gsback-cage">
-    <a href="gsequence.php"><button>Back to GSequence</button></a>
+    <a href="/gsequence"><button>Back to GSequence</button></a>
   </div>
   <div class="fasta-cage">
     <h1>Data</h1>

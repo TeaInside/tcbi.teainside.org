@@ -15,7 +15,7 @@ if (isset($_POST["input1"], $_POST["input2"])
   <style type="text/css">
     body {
       font-family: Arial;
-      background-image: url(assets/bg.jpg);
+      background-image: url(/assets/bg.jpg);
       background-size: cover;
       background-attachment: fixed;
     }
@@ -74,7 +74,7 @@ if (isset($_POST["input1"], $_POST["input2"])
 </head>
 <body>
   <div class="gsback-cage">
-    <a href="gsequence.php"><button>Back to GSequence</button></a>
+    <a href="/gsequence"><button>Back to GSequence</button></a>
   </div>
   <?php if ($post): ?>
     <div class="result">
