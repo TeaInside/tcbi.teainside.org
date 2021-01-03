@@ -2,7 +2,7 @@
 
 if (isset($_POST["input1"], $_POST["input2"])
     && is_string($_POST["input1"]) && is_string($_POST["input2"])) {
-  similar_text($_POST["input1"], $_POST["input2"], $sim);
+  $sim = similar_text($_POST["input1"], $_POST["input2"], $per);
   $post = true;
 } else {
   $post = false;
@@ -81,8 +81,9 @@ if (isset($_POST["input1"], $_POST["input2"])
     <h2>Diff Gen Seq</h2>
     <table class="diff-table" border="1">
       <tbody>
-      <tr><td><b>Similar Seq</b></td><td><?php echo $sim; ?></td></tr>
-      <tr><td><b>Diff Eq</b></td><td><?php echo 100 - $sim; ?></td></tr>
+      <tr><td><b>Similar Count</b></td><td><?php echo $sim; ?></td></tr>
+      <tr><td><b>Similar Seq</b></td><td><?php echo $per; ?>%</td></tr>
+      <tr><td><b>Diff Eq</b></td><td><?php echo 100 - $per; ?>%</td></tr>
       </tbody>
       <tr><td colspan="2"><a href="?"><button>Rediff</button></a></td></tr>
     </table>
