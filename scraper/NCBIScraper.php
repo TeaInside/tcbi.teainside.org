@@ -56,7 +56,7 @@ class NCBIScraper extends ScraperFoundation
 
         $pdo->commit();
 
-        Log::log(1, "Insert OK {$ncbiId}\n");
+        Log::log(1, "Insert OK {$ncbiId}");
       } catch (\PDOException $e) {
         $pdo->rollback();
         throw $e;
