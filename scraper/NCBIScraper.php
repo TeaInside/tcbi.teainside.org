@@ -13,7 +13,7 @@ class NCBIScraper extends ScraperFoundation
   /**
    * @var string
    */
-  private string $proxy;
+  private string $proxy = "";
 
   /**
    * @var bool
@@ -30,15 +30,16 @@ class NCBIScraper extends ScraperFoundation
     $infoQuery  = "INSERT IGNORE INTO `seqdata` (`ncbi_id`, `locus`, `definition`, `accession`, `version`, `keywords`, `sources`, `references`) VALUES (:ncbi_id, :locus, :definition, :accession, :version, :keywords, :sources, :references);";
     $fastaQuery = "INSERT IGNORE INTO fasta (seqdata_id, data) VALUES (:seqdata_id, :data);";
 
+    $c = count(parent::TOR_PROXIES);
+    $i = 0;
+    $this->proxy = parent::TOR_PROXIES[$i % $c];
+
     $pdo     = DB::pdo();
     $stInfo  = $pdo->prepare($infoQuery);
     $stFasta = $pdo->prepare($fastaQuery);
     $listId  = $this->search("covid19");
 
-    $c = count(parent::TOR_PROXIES);
-    $i = 0;
     foreach ($listId as $ncbiId) {
-      $this->proxy = parent::TOR_PROXIES[$i % $c];
 
       try {
         Log::log(1, "Scraping {$ncbiId}...");
