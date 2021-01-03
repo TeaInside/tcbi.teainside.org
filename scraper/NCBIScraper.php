@@ -47,7 +47,7 @@ class NCBIScraper extends ScraperFoundation
           $pdo     = DB::pdo();
           $stInfo  = $pdo->prepare($infoQuery);
           $stFasta = $pdo->prepare($fastaQuery);
-          Log::log(1, "Scraping {$ncbiId}...");
+          Log::log(1, "Scraping over %s ({$ncbiId})...", $this->proxy);
           $info  = $this->getInfo($ncbiId);
           $fasta = $this->getFasta($ncbiId);
 
