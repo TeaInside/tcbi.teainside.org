@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__."/../autoload.php";
+require __DIR__."/../../autoload.php";
 
 ?><!DOCTYPE html>
 <html>
@@ -115,12 +115,11 @@ button {
     <a href="index.html"><button>Kembali ke Index</button></a>
     <div id="covid19_tbl">
       <h2>Data Genome Sequencing</h2>
-      <body>
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Upload Data</a>
         <a href="#">Olah Data</a>
-        <a href="#">Blast Compare</a>
+        <a href="/diff_gen_seq">Blast Compare</a>
         <a href="#">Highlight Sequence</a>
         <a href="#">Graph</a>
       </div>
@@ -219,7 +218,7 @@ $st->execute();
                 <td><?php echo e($r["keywords"]); ?></td>
                 <td><?php echo e($r["sources"]); ?></td>
                 <td><?php echo e($r["references"]); ?></td>
-                <td><a href="fasta.php?id=<?php echo e($r["id"]); ?>">View</a></td>
+                <td><a href="/fasta?id=<?php echo e($r["id"]); ?>">View</a></td>
               </tr>
             <?php endwhile; ?>
           </tbody>
